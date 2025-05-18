@@ -1,6 +1,7 @@
+'use client';
 
-import React from 'react';
-import { Link } from 'react-router-dom';
+import Image from 'next/image';
+import Link from 'next/link';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 
 export interface BlogPostType {
@@ -21,18 +22,19 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
   return (
     <Card className="h-full flex flex-col hover:shadow-md transition-shadow">
       {post.image && (
-        <div className="h-48 overflow-hidden">
-          <img 
+        <div className="h-48 relative">
+          <Image 
             src={post.image} 
             alt={post.title} 
-            className="w-full h-full object-cover"
+            fill 
+            className="object-cover"
           />
         </div>
       )}
       <CardHeader className="pb-2">
         <p className="text-sm text-gray-500">{post.date}</p>
         <h3 className="text-lg font-semibold">
-          <Link to={`/blogs/${post.slug}`} className="hover:text-[#108E66]">
+          <Link href={`/blogs/${post.slug}`} className="hover:text-[#108E66]">
             {post.title}
           </Link>
         </h3>
@@ -42,7 +44,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
       </CardContent>
       <CardFooter>
         <Link 
-          to={`/blogs/${post.slug}`} 
+          href={`/blogs/${post.slug}`} 
           className="text-[#108E66] text-sm font-medium hover:underline"
         >
           Read more &rarr;
